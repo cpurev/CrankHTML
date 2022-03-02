@@ -1,15 +1,6 @@
-# HTMLGenerator V1
-
-Generate raw HTML code with Bootstrap styling, using Quill JS.
-
-Uses Bootstrap - https://getbootstrap.com/docs/4.3/getting-started/introduction/
-Uses Quill JS - https://quilljs.com/docs/quickstart/
-Uses JQuery - https://releases.jquery.com/
-Edit HTML easily and get the raw pastable code using this tool
-
 # HTMLGenerator
-> Generate raw HTML code with Bootstrap styling, using Quill JS..
-> (SOON!) Live demo [_here_](#).  <!-- If you have the project hosted somewhere, include the link here. -->
+> Generate raw HTML code with Bootstrap styling, using Quill Rich Text Editor.
+> Live demo [ (SOON!) ](#).  <!-- If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
