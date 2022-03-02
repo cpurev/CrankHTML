@@ -18,6 +18,7 @@
 
 ## General Information
 - WYSIWYG Rich Texit Editor that outputs raw html of its edited space. And, will intake HTML code and will be able to edit given HTML 
+- Made to update page info easily without programming knowledge.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
