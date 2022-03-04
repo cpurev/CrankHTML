@@ -1,6 +1,6 @@
 # CrankHTML Generator
 > Generate raw HTML code with Bootstrap styling, using Quill Rich Text Editor.
-<!--> Live demo [ (SOON!) ](#).   If you have the project hosted somewhere, include the link here. -->
+<!-- Live demo [ (SOON!) ](#).   If you have the project hosted somewhere, include the link here. -->
 
 ## Table of Contents
 * [General Info](#general-information)
@@ -17,8 +17,9 @@
 
 
 ## General Information
-- WYSIWYG Rich Texit Editor that outputs written text into html. And, will intake HTML code and will be able to edit given HTML 
-- Made to update page info easily without programming. Just copy-and-paste.
+- WYSIWYG Rich Texit Editor that outputs written text into html. And, will intake HTML code and will be able to edit it 
+- Simple and small one file project
+- Made to update page info easily without coding. Just copy-and-paste.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
