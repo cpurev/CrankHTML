@@ -18,6 +18,7 @@
 
 ## General Information
 - WYSIWYG Rich Texit Editor that outputs written text into html. And, will intake HTML code and will be able to edit given HTML 
+- Simple and small one file code
 - Made to update page info easily without programming. Just copy-and-paste.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
