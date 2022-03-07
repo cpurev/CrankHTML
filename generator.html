@@ -14,7 +14,11 @@
 			color: #333;
 			border: 0;
 		}
-		.copy:hover{
+		.button1{
+			background-color: white;
+		}
+
+		.button1:hover{
 			cursor: pointer;
 		}
 	</style>
@@ -31,17 +35,20 @@
 				Presets
 				</button>
 				<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+					<button class="dropdown-item" type="button">Reset</button>
 					<button class="dropdown-item" type="button">Overview</button>
 					<button class="dropdown-item" type="button">Accordion</button>
 				</div>
 			</div>
-			<button type="button" class="copy border border-light"  style="background-color: white;">
+			<button type="button" id="copy" class="button1 border border-light">
 				COPY 
 				<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M7.024 3.75c0-.966.784-1.75 1.75-1.75H20.25c.966 0 1.75.784 1.75 1.75v11.498a1.75 1.75 0 01-1.75 1.75H8.774a1.75 1.75 0 01-1.75-1.75V3.75zm1.75-.25a.25.25 0 00-.25.25v11.498c0 .139.112.25.25.25H20.25a.25.25 0 00.25-.25V3.75a.25.25 0 00-.25-.25H8.774z"></path><path d="M1.995 10.749a1.75 1.75 0 011.75-1.751H5.25a.75.75 0 110 1.5H3.745a.25.25 0 00-.25.25L3.5 20.25c0 .138.111.25.25.25h9.5a.25.25 0 00.25-.25v-1.51a.75.75 0 111.5 0v1.51A1.75 1.75 0 0113.25 22h-9.5A1.75 1.75 0 012 20.25l-.005-9.501z"></path></svg>
 			</button>
+			<div id='btns'></div>
 		</div>
 		<div class = "col-md-8 order-2 order-md-1 pr" id="main">
 			<div id="editor">
+				<p>CLICK ME!!</p>
 			</div>
 		</div>
 	</section>
@@ -53,15 +60,16 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script>
 		//Are we displaying Quil text editor?
-		var quil = true;
+		var quil = false;
 
-		//Which element have we clicked?
-		var current;
+		//Count how many presets
+		var count;
 
 		//Presets
 		var presets = {
-			Overview:'<div id="service-intro"><p>Change ME!!!!!!</p></div> <h3>Heading</h3> <div id="service-getStarted"><p>Change ME!!!!!</p></div> <hr> <h3>Heading</h3> <div id="service-moreInfo"><p>Change Me!!!!!</p></div>',
-			Accordion: '<div class="accordion-container"> <div class="row"> <div class="col"><div id="accordion-1" role="tablist" class="light"><div class="card"> <div class="card-header" id="heading-item1" role="tab"> <div class="h5 font-weight-bold mb-0"> <a class="collapsed" aria-controls="collapse-item1" aria-expanded="false" data-toggle="collapse" href="#collapse-item1">Its not working<span class="fas fa-angle-down rotate-icon" style="float: right;" aria-hidden="true"></span> </a> </div> <div aria-labelledby="heading-item1" class="collapse" data-parent="#accordion" id="collapse-item1" role="tabpanel" style=""> <div class="card-body"> <div id="service-eligible"><p>Change ME !!!</p></div> </div> </div> </div> </div></div></div> </div></div>'
+			Reset: '<div id="editor"><p>CLICK ME!!</p></div>',
+			Overview:'<div id="overview-intro"><p>Change ME!!!!!!</p></div> <h3>Heading</h3> <div id="overview-0"><p>Change ME!!!!!</p></div> <hr> <h3>Heading</h3> <div id="overview-1"><p>Change Me!!!!!</p></div>',
+			Accordion: '<div class="accordion-container"> <div class="row"> <div class="col"><div id="accordion-1" role="tablist" class="light"></div></div> </div></div>'
 		}
 
 		//Custom button SVG(DONE BUTTON IN TOOLBAR)
@@ -92,9 +100,6 @@
 					handlers: {
 						'done': function (value){
 							var save = $('.ql-editor').html();
-							//$('#editor').parent().get( 0 ).innerHTML = save;
-							//console.log(this.parent());
-							console.log($('#editor').parent().index('div'));
 							$('.ql-toolbar').remove();
 							document.querySelector('#editor').insertAdjacentHTML('afterend', save);
 							$('#editor').remove();
@@ -106,8 +111,6 @@
 			placeholder: 'Compose an epic...',
 			theme: 'snow'
 		};
-		//Inital Editor
-		var editor = new Quill('#editor', options); // Init Quill 
 
 		//Enter key input string(HTML)
 		$('#inp').keydown(function(e){
@@ -119,12 +122,52 @@
 
 		//Preset button
 		$('.dropdown-menu button').click(function(e){
-			console.log($(this).text());
 			$('#main').html(presets[$(this).text()]);
 			quil = false;
+			if($(this).text() === 'Reset'){
+				$('#btns').html('');
+			}
+			else {
+				presetButtons($(this).text());
+			}
 		});
 
-		//Show input string(HTML)
+		function presetButtons(str){
+			count = 0;
+			var plus = document.createElement('button');
+			var minus = document.createElement('button');
+			
+			plus.type = 'button';
+			plus.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M11.75 4.5a.75.75 0 01.75.75V11h5.75a.75.75 0 010 1.5H12.5v5.75a.75.75 0 01-1.5 0V12.5H5.25a.75.75 0 010-1.5H11V5.25a.75.75 0 01.75-.75z"></path></svg>';
+			plus.className = 'button1 border border-light';
+			
+			minus.type = 'button';
+			minus.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path fill-rule="evenodd" d="M2.5 12a9.5 9.5 0 1119 0 9.5 9.5 0 01-19 0zM12 1C5.925 1 1 5.925 1 12s4.925 11 11 11 11-4.925 11-11S18.075 1 12 1zm6.25 11.75a.75.75 0 000-1.5H5.75a.75.75 0 000 1.5h12.5z"></path></svg>';
+			minus.className = 'button1 border border-light';
+
+			
+			switch(str){
+				case 'Overview':
+							$('#btns').html('');
+							plus.onclick = function () {++count;document.querySelector('#main').insertAdjacentHTML('beforeend', '<hr> <h3>Heading</h3> <div id="overview-'+count+'"><p>Change Me!!!!!</p></div>');}
+							minus.onclick = function () {--count;$('#main').children().last().remove();$('#main').children().last().remove();$('#main').children().last().remove();}
+							break;
+				case 'Accordion':
+							$('#btns').html('');
+							var inpo = document.createElement('input');
+							inpo.id = 'naming';
+							plus.onclick = function () {++count; document.querySelector('#accordion-1').insertAdjacentHTML('beforeend', '<div class="card"> <div class="card-header" id="heading-item'+count+'" role="tab"> <div class="h5 font-weight-bold mb-0"> <a class="collapsed" aria-controls="collapse-item'+count+'" aria-expanded="false" data-toggle="collapse" href="#collapse-item'+count+'">'+$('#naming').val()+'<span class="fas fa-angle-down rotate-icon" style="float: right;" aria-hidden="true"></span> </a> </div> <div aria-labelledby="heading-item'+count+'" class="collapse" data-parent="#accordion" id="collapse-item'+count+'" role="tabpanel" style=""> <div class="card-body"> <div id="accordion1"><p>Change ME !!!</p></div> </div> </div> </div> </div>');}
+							minus.onclick = function () {--count;$('#accordion-1').children().last().remove();}
+							$('#btns').append(inpo);
+							break;
+			}
+
+
+			$('#btns').append(plus);
+			$('#btns').append(minus);					
+		}
+
+		//Intake input string(HTML)
 		$('#submit').click(function (e){
 			$('#main').html($('#inp').val());
 			quil = false;
@@ -135,16 +178,15 @@
 			if (!quil){
 				if (e.target.nodeName == 'P' | e.target.nodeName == 'H3' 
 					| e.target.nodeName == 'UL' | e.target.nodeName == 'OL'){
-				current = e.target
-					$(current).wrap('<div id="editor"></div>');
+					$(e.target).wrap('<div id="editor"></div>');
 				var editor = new Quill('#editor', options); // Init Quill 
 				quil = true;
 				}
 			}
 		});
 
-		//Copy whatever HTML into clipboard
-		$('.copy').click( function(e){
+		//Copy HTML into clipboard
+		$('#copy').click( function(e){
 			var t;
 			if($('#editor').length){
 				t =	$( ".ql-editor" ).html();
