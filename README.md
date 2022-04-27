@@ -17,6 +17,7 @@
 
 
 ## General Information
+- Can be used to insert custom CMS
 - WYSIWYG Rich Texit Editor that outputs written text into html. And, will intake HTML code and will be able to edit it 
 - Simple and small one file project
 - Made to update page info easily without coding. Just copy-and-paste.
